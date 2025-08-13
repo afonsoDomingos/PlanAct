@@ -137,41 +137,45 @@ export default function PlataformaAtividades() {
   }, [atividades, totalAtividades])
 
   // --- Data Fetching Functions ---
-  const fetchColaboradores = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`${API_BASE_URL}/colaboradores`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setColaboradores(data);
-    } catch (e: any) {
-      setError(`Failed to fetch collaborators: ${e.message}`);
-      console.error("Failed to fetch collaborators:", e);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchColaboradores = async () => {
+  setLoading(true)
+  setError(null)
+  try {
+    const response = await fetch(`${API_BASE_URL}/colaboradores`, {
+      headers: { "x-projeto": "projetoA" } // define projetoA
+    })
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    const data = await response.json()
+    setColaboradores(data)
+  } catch (e: any) {
+    setError(`Falha ao buscar colaboradores: ${e.message}`)
+    console.error(e)
+  } finally {
+    setLoading(false)
+  }
+}
 
-  const fetchAtividades = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`${API_BASE_URL}/atividades`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setAtividades(data);
-    } catch (e: any) {
-      setError(`Failed to fetch activities: ${e.message}`);
-      console.error("Failed to fetch activities:", e);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchAtividades = async () => {
+  setLoading(true)
+  setError(null)
+  try {
+    const response = await fetch(`${API_BASE_URL}/atividades`, {
+      headers: { "x-projeto": "projetoA" } // define projetoA
+    })
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    const data = await response.json()
+    setAtividades(data)
+  } catch (e: any) {
+    setError(`Falha ao buscar atividades: ${e.message}`)
+    console.error(e)
+  } finally {
+    setLoading(false)
+  }
+}
+
+
+
+ 
 
   // --- useEffect to fetch data on component mount ---
   useEffect(() => {
